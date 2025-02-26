@@ -16,14 +16,9 @@ public class Joke {
     private String author;
     private String tag;
 
-
-   /*@OneToOne(mappedBy = "jokes", cascade = CascadeType.ALL)
-    @Enumerated(EnumType.ORDINAL)
-    private Category category;
-
-    */
-
-
+//    @OneToOne(mappedBy = "jokes", cascade = CascadeType.ALL)
+//    @Enumerated(EnumType.ORDINAL)
+//    private Category category;
 
     public Joke() {
     }

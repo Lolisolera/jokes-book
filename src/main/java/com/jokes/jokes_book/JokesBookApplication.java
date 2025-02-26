@@ -10,7 +10,6 @@ public class JokesBookApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JokesBookApplication.class, args);
-		System.out.println(FuturisticJokesData.getFuturisticJokes());
 	}
 
 

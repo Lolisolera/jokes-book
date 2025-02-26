@@ -3,9 +3,11 @@ package com.jokes.jokes_book.Models;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class FuturisticJokesData {
     private static List<String> futuristicJokes = new ArrayList<>();
+    private static final AtomicInteger jokeIndex = new AtomicInteger(0);
 
     static {
         futuristicJokes.add("Why did the AI break up with its girlfriend? It needed more space!");
@@ -31,9 +33,18 @@ public class FuturisticJokesData {
     }
 
 
+//    public static String getFuturisticJokes() {
+//        // var here that stores the array index - ++ on each call of futuristicJokes
+//        // counter 0 on each call ++ 1 - till futuristicJokes.length
+//        return futuristicJokes.get(ThreadLocalRandom.current().nextInt(0, futuristicJokes.size() - 1));
+//    }
+
     public static String getFuturisticJokes() {
-        return futuristicJokes.get(ThreadLocalRandom.current().nextInt(0, futuristicJokes.size() - 1));
+        int index = jokeIndex.getAndUpdate(i -> (i + 1) % futuristicJokes.size());
+        return futuristicJokes.get(index);
     }
+
+
     //1- pick a random index per joke Math.random size -1?
     //2-  generate random number, get element inside the array using that random number
     //3- remove that element from the array (parse index)
