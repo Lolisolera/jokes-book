@@ -5,6 +5,7 @@ target/
 !**/src/test/**/target/
 resources/application.properties
 
+
 ### STS ###
 .apt_generated
 .classpath
@@ -32,3 +33,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+## env vars
+application.properties
