@@ -17,16 +17,23 @@ public class Joke {
     private String tag;
 
 
-    @OneToOne(mappedBy = "jokes", cascade = CascadeType.ALL)
+   /*@OneToOne(mappedBy = "jokes", cascade = CascadeType.ALL)
     @Enumerated(EnumType.ORDINAL)
     private Category category;
+
+    */
+
+
 
     public Joke() {
     }
 
-    public Joke(String joke, Category category, int rating, String author, String tag) {
+    public Joke(String joke) {
         this.joke = joke;
-        this.category = category;
+    }
+
+    public Joke(String joke, int rating, String author, String tag) {
+        this.joke = joke;
         this.rating = rating;
         this.author = author;
         this.tag = tag;

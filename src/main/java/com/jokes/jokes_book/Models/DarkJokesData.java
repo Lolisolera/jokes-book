@@ -27,16 +27,7 @@ public class DarkJokesData {
         darkJokes.add("Why do graveyards have fences? Because people are dying to get out too!");
         darkJokes.add("What did the undertaker say before closing the casket? 'That's a wrap!'");
     }
-    private static List<String> category = new ArrayList<>();
-    static {
-        category.add("Dark Jokes");
-    }
-    private static List<String> author = new ArrayList<>();
-    static {
-        author.add("Lola");
-    }
-    private static List<String> tag = new ArrayList<>();
-    static {
-        tag.add("Dark");
+    public static List<String> getDarkJokes() {
+        return darkJokes ;
     }
 }
