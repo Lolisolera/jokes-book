@@ -2,6 +2,7 @@ package com.jokes.jokes_book.Models;
 
 import jakarta.persistence.*;
 
+
 @Entity
 @Table(name =  "jokes")
 public class Joke {
@@ -11,15 +12,19 @@ public class Joke {
     private Long id;
 
     private String joke;
-    private String category;
     private int rating;
     private String author;
     private String tag;
 
+
+    @OneToOne(mappedBy = "jokes", cascade = CascadeType.ALL)
+    @Enumerated(EnumType.ORDINAL)
+    private Category category;
+
     public Joke() {
     }
 
-    public Joke(String joke, String category, int rating, String author, String tag) {
+    public Joke(String joke, Category category, int rating, String author, String tag) {
         this.joke = joke;
         this.category = category;
         this.rating = rating;
@@ -41,14 +46,6 @@ public class Joke {
 
     public void setJoke(String joke) {
         this.joke = joke;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public int getRating() {
