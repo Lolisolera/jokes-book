@@ -94,10 +94,16 @@ public class JokesController{
     }
 
     // GET /jokes/{tagWord} -> returns any jokes with tag matching that word
-    @GetMapping("/search")
+    @GetMapping("/search/tag")
     public List<Joke> findJokesByTagWord(@RequestParam String tag){
         return jokesRepository.findByTagContainingIgnoreCase(tag);
     };
+
+    //GET /jokes/{category} -> returns any/all jokes by specific category
+    @GetMapping("/search/cat")
+    public List<Joke> findJokesByCategory(@RequestParam String category){
+        return jokesRepository.findByCategoryContainingIgnoreCase(category);
+    }
 
 } // end class
 
