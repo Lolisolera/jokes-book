@@ -44,9 +44,4 @@ public class FuturisticJokesData {
         String category = "Futuristic";
         return new Joke(jokeText, rating, author, tag, category);
     }
-
-    //1- pick a random index per joke Math.random size -1?
-    //2-  generate random number, get element inside the array using that random number
-    //3- remove that element from the array (parse index)
-    //4- return that element = string to the cdb
 }
