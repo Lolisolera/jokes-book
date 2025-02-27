@@ -4,6 +4,9 @@ import com.jokes.jokes_book.Models.FuturisticJokesData;
 import com.jokes.jokes_book.Models.Joke;
 import com.jokes.jokes_book.Repositories.JokesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Lookup;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -89,6 +92,12 @@ public class JokesController{
         jokesRepository.save(joke);
         return joke;
     }
+
+    // GET /jokes/{tagWord} -> returns any jokes with tag matching that word
+    @GetMapping("/search")
+    public List<Joke> findJokesByTagWord(@RequestParam String tag){
+        return jokesRepository.findByTagContainingIgnoreCase(tag);
+    };
 
 } // end class
 
