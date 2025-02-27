@@ -35,13 +35,6 @@ public class FuturisticJokesData {
         futuristicJokes.add("Why did the scientist break up with the light bulb? Because it wasn’t bright enough for them!");
     }
 
-
-//    public static String getFuturisticJokes() {
-//        // var here that stores the array index - ++ on each call of futuristicJokes
-//        // counter 0 on each call ++ 1 - till futuristicJokes.length
-//        return futuristicJokes.get(ThreadLocalRandom.current().nextInt(0, futuristicJokes.size() - 1));
-//    }
-
     public static Joke getFuturisticJokes() {
         int index = jokeIndex.getAndUpdate(i -> (i + 1) % futuristicJokes.size());
         String jokeText = futuristicJokes.get(index);
@@ -49,10 +42,8 @@ public class FuturisticJokesData {
         String author = authors.get(ThreadLocalRandom.current().nextInt(authors.size()));
         String tag = tags.get(ThreadLocalRandom.current().nextInt(tags.size()));
         String category = "Futuristic";
-        // return futuristicJokes.get(index);
         return new Joke(jokeText, rating, author, tag, category);
     }
-
 
     //1- pick a random index per joke Math.random size -1?
     //2-  generate random number, get element inside the array using that random number

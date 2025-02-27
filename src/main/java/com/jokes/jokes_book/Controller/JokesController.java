@@ -14,7 +14,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/jokes")
 
-
 public class JokesController{
     private JokesRepository jokesRepository;
     @Autowired
@@ -31,7 +30,6 @@ public class JokesController{
         if (jokesRepository.count() > 0) {
             return "Jokes table already has jokes entries";
         }
-        //limit amount of jokes cited in db to 20
 
         List<Joke>jokes = new ArrayList<>();
         for (int i = 0; i < counter; i++) {
@@ -45,7 +43,7 @@ public class JokesController{
         return String.format("%s jokes were added successfully to the table",
                 counter);
 
-    } // populatedb
+    } // end populatedb
 
     // DELETE on jokes/ -> delete ALL jokes in table
     @DeleteMapping
@@ -91,8 +89,6 @@ public class JokesController{
         jokesRepository.save(joke);
         return joke;
     }
-
-    //
 
 } // end class
 
