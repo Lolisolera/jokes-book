@@ -33,6 +33,4 @@ build/
 .vscode/
 
 ## env vars
-src/main/resources/application.properties
-application.properties
-resources/application.properties
+env.properties
