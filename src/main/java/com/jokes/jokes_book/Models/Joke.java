@@ -15,6 +15,7 @@ public class Joke {
     private int rating;
     private String author;
     private String tag;
+    private String category;
 
 //    @OneToOne(mappedBy = "jokes", cascade = CascadeType.ALL)
 //    @Enumerated(EnumType.ORDINAL)
@@ -27,11 +28,12 @@ public class Joke {
         this.joke = joke;
     }
 
-    public Joke(String joke, int rating, String author, String tag) {
+    public Joke(String joke, int rating, String author, String tag, String category) {
         this.joke = joke;
         this.rating = rating;
         this.author = author;
         this.tag = tag;
+        this.category = category;
     }
 
     public Long getId() {
@@ -72,5 +74,13 @@ public class Joke {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

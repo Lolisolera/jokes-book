@@ -22,8 +22,6 @@ public class JokesController{
         this.jokesRepository = jokesRepository;
     }
 
-
-
     //POST /Jokes
    @PostMapping("/populatedb")
     public String seedDB(@RequestParam(required = false) String count) {
@@ -31,18 +29,17 @@ public class JokesController{
         counter = count != null ? Integer.parseInt(count) : 5;
 
         if (jokesRepository.count() > 0) {
-            return "Jokes tables already has jokes entries";
+            return "Jokes table already has jokes entries";
         }
         //limit amount of jokes cited in db to 20
 
         List<Joke>jokes = new ArrayList<>();
         for (int i = 0; i < counter; i++) {
-            String futuristicJoke = FuturisticJokesData.getFuturisticJokes();
-            jokes.add(new Joke(futuristicJoke));
+            // String futuristicJoke = FuturisticJokesData.getFuturisticJokes();
+            Joke joke = FuturisticJokesData.getFuturisticJokes();
+            // jokes.add(new Joke(futuristicJoke));
+            jokes.add(joke);
         }
-
-        // for loop from i 0 - 19
-       // return futuristicJoke[i]
 
         jokesRepository.saveAll(jokes);
         return String.format("%s jokes were added successfully to the table",
