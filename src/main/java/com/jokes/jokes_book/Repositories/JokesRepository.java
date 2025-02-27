@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface JokesRepository extends JpaRepository <Joke, Long>{
     List<Joke> findByTagContainingIgnoreCase(String tag);
+    List<Joke> findByCategoryContainingIgnoreCase(String category);
 }
 
 
