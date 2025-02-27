@@ -1,7 +1,9 @@
 package com.jokes.jokes_book.Controller;
 
+import com.jokes.jokes_book.Models.DarkJokesData;
 import com.jokes.jokes_book.Models.FuturisticJokesData;
 
+import com.jokes.jokes_book.Models.GeekJokesData;
 import com.jokes.jokes_book.Models.Joke;
 import com.jokes.jokes_book.Repositories.JokesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +39,13 @@ public class JokesController{
 
         List<Joke>jokes = new ArrayList<>();
         for (int i = 0; i < counter; i++) {
-            // String futuristicJoke = FuturisticJokesData.getFuturisticJokes();
-            Joke joke = FuturisticJokesData.getFuturisticJokes();
-            // jokes.add(new Joke(futuristicJoke));
-            jokes.add(joke);
+            Joke futuristicJoke = FuturisticJokesData.getFuturisticJokes();
+            Joke darkJoke = DarkJokesData.getDarkJokes();
+            Joke geekJoke = GeekJokesData.getGeekJokes();
+
+            jokes.add(darkJoke);
+            jokes.add(futuristicJoke);
+            jokes.add(geekJoke);
         }
 
         jokesRepository.saveAll(jokes);

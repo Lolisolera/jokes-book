@@ -2,9 +2,15 @@ package com.jokes.jokes_book.Models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class DarkJokesData {
     private static List<String> darkJokes = new ArrayList<>();
+    private static final List<String> authors = List. of("AI Bot", "Dark Guru", "Twisted Comedian", "Dart Arts Kid", "Welcome to the dark side");
+    private static final List<String> tags = List.of("Dark, Morbid, Twisted", "Edgy, Offensive", "Black, Satire", "Ironic, Controversial, Gallows");
+    private static final AtomicInteger jokeIndex = new AtomicInteger(0);
+
     static {
         darkJokes.add("Why don’t graveyards ever get overcrowded? Because people are dying to get in!");
         darkJokes.add("Why did the orphan bring a ladder to school? To reach their parent-teacher conference!");
@@ -27,7 +33,13 @@ public class DarkJokesData {
         darkJokes.add("Why do graveyards have fences? Because people are dying to get out too!");
         darkJokes.add("What did the undertaker say before closing the casket? 'That's a wrap!'");
     }
-    public static List<String> getDarkJokes() {
-        return darkJokes ;
+    public static Joke getDarkJokes() {
+        int index = jokeIndex.getAndUpdate(i -> (i + 1) % darkJokes.size());
+        String jokeText = darkJokes.get(index);
+        int rating = ThreadLocalRandom.current().nextInt(1, 11); // will give a random rating 1-10
+        String author = authors.get(ThreadLocalRandom.current().nextInt(authors.size()));
+        String tag = tags.get(ThreadLocalRandom.current().nextInt(tags.size()));
+        String category = "Dark";
+        return new Joke(jokeText, rating, author, tag, category);
     }
 }
