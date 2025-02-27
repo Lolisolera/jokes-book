@@ -1,19 +1,15 @@
-package com.jokes.jokes_book.Controller;
+package com.koyeb.jokes_book.Controller;
 
-import com.jokes.jokes_book.Models.DarkJokesData;
-import com.jokes.jokes_book.Models.FuturisticJokesData;
+import com.koyeb.jokes_book.Models.DarkJokesData;
+import com.koyeb.jokes_book.Models.FuturisticJokesData;
 
-import com.jokes.jokes_book.Models.GeekJokesData;
-import com.jokes.jokes_book.Models.Joke;
-import com.jokes.jokes_book.Repositories.JokesRepository;
+import com.koyeb.jokes_book.Models.GeekJokesData;
+import com.koyeb.jokes_book.Models.Joke;
+import com.koyeb.jokes_book.Repositories.JokesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Lookup;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 

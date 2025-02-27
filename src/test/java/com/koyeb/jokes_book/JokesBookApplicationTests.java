@@ -1,4 +1,4 @@
-package com.jokes.jokes_book;
+package com.koyeb.jokes_book;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

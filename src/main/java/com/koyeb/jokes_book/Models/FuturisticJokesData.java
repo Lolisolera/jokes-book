@@ -1,4 +1,4 @@
-package com.jokes.jokes_book.Models;
+package com.koyeb.jokes_book.Models;
 
 import java.util.ArrayList;
 import java.util.List;
