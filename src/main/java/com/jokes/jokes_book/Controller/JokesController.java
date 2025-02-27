@@ -1,6 +1,7 @@
 package com.jokes.jokes_book.Controller;
 
 import com.jokes.jokes_book.Models.FuturisticJokesData;
+
 import com.jokes.jokes_book.Models.Joke;
 import com.jokes.jokes_book.Repositories.JokesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
