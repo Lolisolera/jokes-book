@@ -17,10 +17,6 @@ public class Joke {
     private String tag;
     private String category;
 
-//    @OneToOne(mappedBy = "jokes", cascade = CascadeType.ALL)
-//    @Enumerated(EnumType.ORDINAL)
-//    private Category category;
-
     public Joke() {
     }
 
