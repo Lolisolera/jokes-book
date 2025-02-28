@@ -1,26 +1,29 @@
 package com.koyeb.jokes_book.Controller;
 
-import com.koyeb.jokes_book.Models.DarkJokesData;
-import com.koyeb.jokes_book.Models.FuturisticJokesData;
+import com.koyeb.jokes_book.Models.*;
 
-import com.koyeb.jokes_book.Models.GeekJokesData;
-import com.koyeb.jokes_book.Models.Joke;
+import com.koyeb.jokes_book.Repositories.JokeOfTheDayRepository;
 import com.koyeb.jokes_book.Repositories.JokesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/api/jokes")
 
 public class JokesController{
     private JokesRepository jokesRepository;
+    private JokeOfTheDayRepository jokeOfTheDayRepository;
     @Autowired
-    public JokesController(JokesRepository jokesRepository) {
+    public JokesController(JokesRepository jokesRepository, JokeOfTheDayRepository jokeOfTheDayRepository) {
         this.jokesRepository = jokesRepository;
+        this.jokeOfTheDayRepository = jokeOfTheDayRepository;
     }
 
     //POST /Jokes
@@ -105,6 +108,46 @@ public class JokesController{
     @GetMapping("/search/cat")
     public List<Joke> findJokesByCategory(@RequestParam String category){
         return jokesRepository.findByCategoryContainingIgnoreCase(category);
+    }
+
+    // POST : populate the jokes of the day for last 14 days is default amount
+    @PostMapping("/populatejokesoftheday")
+    public String populateJokesOfTheDay(@RequestParam(required = false) String count) {
+        int counter;
+        counter = count != null ? Integer.parseInt(count) : 14;
+
+        if (jokeOfTheDayRepository.count() > 0) {
+            return "Joke of the day table already has entries";
+        }
+
+        List<Joke> allJokes = jokesRepository.findAll(); // gets all the jokes in table
+        List<JokeOfTheDay> jokesOfTheDay = new ArrayList<>(); // set up our jokesOfTheDay arraylist
+        Random random = new Random();
+
+        for (int i = 0; i < counter; i++) {
+            Joke joke = allJokes.get(random.nextInt(allJokes.size())); // gets random joke from allJokes
+            JokeOfTheDay jokeOfTheDay = new JokeOfTheDay(); // creating a new joke of the day object
+            jokeOfTheDay.setJoke(joke);
+            jokeOfTheDay.setDate(LocalDate.now().minusDays(i)); // by default is 14 or count if passed a number
+            jokesOfTheDay.add(jokeOfTheDay);
+        }
+
+        jokeOfTheDayRepository.saveAll(jokesOfTheDay);
+        return String.format("%s joke of the day entries were added successfully to the table",
+                counter);
+    }
+
+    // GET /joke-of-the-day : get todays joke
+    @GetMapping("/joke-of-the-day")
+    public JokeOfTheDay getJokeOfTheDay() {
+        return jokeOfTheDayRepository.findByDate(LocalDate.now());
+    }
+
+    // GET /joke-of-the-day/{date} : get joke by date
+    // format for dates is yyyy-MM-dd
+    @GetMapping("/joke-of-the-day/{date}")
+        public JokeOfTheDay getJokeOfTheDay(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
+            return jokeOfTheDayRepository.findByDate(date);
     }
 
 } // end class
