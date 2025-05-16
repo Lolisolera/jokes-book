@@ -8,12 +8,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class GeekJokesData {
     private static List<String> geekJokes = new ArrayList<>();
     private static final List<String> authors = List.of("Code Ninja", "Bug Hunter", "Binary Bard", "Syntax Samurai");
-    private static final List<String> tags = List.of("Programming, Code, Tech", "AI, Computers", "Databases, SQL, Relationships", "Quantum, Future, Space", "Sci-Fi, Debugging, Errors");
 
+    // Cleaned-up individual tag keywords
+    private static final List<String> tags = List.of(
+            "programming", "code", "tech", "ai", "computers",
+            "databases", "sql", "relationships", "debugging", "errors", "binary"
+    );
 
     private static final AtomicInteger jokeIndex = new AtomicInteger(0);
 
-    static{
+    static {
         geekJokes.add("Why do programmers prefer dark mode? Because light attracts bugs!");
         geekJokes.add("Why do Java developers wear glasses? Because they don’t C#!");
         geekJokes.add("Why did the developer go broke? Because he used up all his cache!");
@@ -34,19 +38,15 @@ public class GeekJokesData {
         geekJokes.add("Why do computer scientists hate nature? Because it has too many bugs!");
         geekJokes.add("What did the Java code say to the C++ code? 'You’ve got too many issues… let’s decompile our differences!'");
         geekJokes.add("Why was the web developer so bad at relationships? Because he always tried to resolve everything asynchronously!");
-
     }
 
     public static Joke getGeekJokes() {
         int index = jokeIndex.getAndUpdate(i -> (i + 1) % geekJokes.size());
         String jokeText = geekJokes.get(index);
-        int rating = ThreadLocalRandom.current().nextInt(1, 11); // will give a random rating 1-10
+        int rating = ThreadLocalRandom.current().nextInt(1, 11);
         String author = authors.get(ThreadLocalRandom.current().nextInt(authors.size()));
         String tag = tags.get(ThreadLocalRandom.current().nextInt(tags.size()));
-        String category = "Geek";
+        String category = "geek"; // lowercase for matching query filter
         return new Joke(jokeText, rating, author, tag, category);
     }
-
-
-
 }

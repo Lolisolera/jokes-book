@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class FuturisticJokesData {
     private static List<String> futuristicJokes = new ArrayList<>();
     private static final List<String> authors = List.of("AI Bot", "Future Guru", "Quantum Comedian", "Neural Jokester");
-    private static final List<String> tags = List.of("Technology, Tech, Space", "AI, Computers", "Space, Tech", "Quantum, Future, Space", "Sci-Fi, Tech");
+    private static final List<String> tags = List.of("technology", "tech", "space", "ai", "computers", "quantum", "future", "sci-fi");
 
     private static final AtomicInteger jokeIndex = new AtomicInteger(0);
 
@@ -38,10 +38,11 @@ public class FuturisticJokesData {
     public static Joke getFuturisticJokes() {
         int index = jokeIndex.getAndUpdate(i -> (i + 1) % futuristicJokes.size());
         String jokeText = futuristicJokes.get(index);
-        int rating = ThreadLocalRandom.current().nextInt(1, 11); // will give a random rating 1-10
+        int rating = ThreadLocalRandom.current().nextInt(1, 11); // rating from 1-10
         String author = authors.get(ThreadLocalRandom.current().nextInt(authors.size()));
         String tag = tags.get(ThreadLocalRandom.current().nextInt(tags.size()));
-        String category = "Futuristic";
+        String category = "futuristic"; // lowercase for consistency
+
         return new Joke(jokeText, rating, author, tag, category);
     }
 }
