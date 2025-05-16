@@ -2,7 +2,6 @@ package com.koyeb.jokes_book.Models;
 
 import jakarta.persistence.*;
 
-
 @Entity
 @Table(name =  "jokes")
 public class Joke {
@@ -22,6 +21,13 @@ public class Joke {
 
     public Joke(String joke) {
         this.joke = joke;
+    }
+
+    // ✅ New constructor added for fallback joke in controller
+    public Joke(String joke, String tag, String category) {
+        this.joke = joke;
+        this.tag = tag;
+        this.category = category;
     }
 
     public Joke(String joke, int rating, String author, String tag, String category) {
