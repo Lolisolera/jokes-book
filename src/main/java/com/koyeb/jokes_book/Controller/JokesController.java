@@ -76,6 +76,16 @@ public class JokesController {
         }
     }
 
+    // Delete ALL Joke of the Day entries
+    @DeleteMapping("/joke-of-the-day")
+    public String deleteAllJokeOfTheDayEntries() {
+        if (jokeOfTheDayRepository.count() == 0) {
+            return "The Joke of the Day table is already empty";
+        }
+        jokeOfTheDayRepository.deleteAll();
+        return "All Joke of the Day entries have been deleted from the table";
+    }
+
     @GetMapping
     public List<Joke> getAllJokes() {
         return jokesRepository.findAll();
