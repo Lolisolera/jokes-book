@@ -27,21 +27,33 @@ public class JokesController {
 
     @PostMapping("/populatedb")
     public String seedDB(@RequestParam(required = false) String count) {
-        int counter = count != null ? Integer.parseInt(count) : 5;
+        int counter = count != null ? Integer.parseInt(count) : 20;
 
-        if (jokesRepository.count() > 0) {
-            return "Jokes table already has jokes entries";
-        }
+        List<Joke> newJokes = new ArrayList<>();
+        Set<String> existingJokes = new HashSet<>();
+        jokesRepository.findAll().forEach(j -> existingJokes.add(j.getJoke()));
 
-        List<Joke> jokes = new ArrayList<>();
         for (int i = 0; i < counter; i++) {
-            jokes.add(DarkJokesData.getDarkJokes());
-            jokes.add(FuturisticJokesData.getFuturisticJokes());
-            jokes.add(GeekJokesData.getGeekJokes());
+            Joke[] batch = {
+                    DarkJokesData.getDarkJokes(),
+                    FuturisticJokesData.getFuturisticJokes(),
+                    GeekJokesData.getGeekJokes()
+            };
+
+            for (Joke joke : batch) {
+                if (!existingJokes.contains(joke.getJoke())) {
+                    newJokes.add(joke);
+                    existingJokes.add(joke.getJoke());
+                }
+            }
         }
 
-        jokesRepository.saveAll(jokes);
-        return String.format("%s jokes were added successfully to the table", counter);
+        if (!newJokes.isEmpty()) {
+            jokesRepository.saveAll(newJokes);
+            return String.format("%d new jokes were added successfully to the table.", newJokes.size());
+        } else {
+            return "No new jokes to add — all jokes already exist.";
+        }
     }
 
     @DeleteMapping
@@ -114,7 +126,6 @@ public class JokesController {
         return String.format("%s joke of the day entries were added successfully to the table", counter);
     }
 
-    // This now returns a DTO wrapper object
     @GetMapping("/joke-of-the-day")
     public JokeOfTheDayResponse getJokeOfTheDay() {
         JokeOfTheDay jokeOfTheDay = jokeOfTheDayRepository.findByDate(LocalDate.now());
