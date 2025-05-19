@@ -76,7 +76,6 @@ public class JokesController {
         }
     }
 
-    // Delete ALL Joke of the Day entries
     @DeleteMapping("/joke-of-the-day")
     public String deleteAllJokeOfTheDayEntries() {
         if (jokeOfTheDayRepository.count() == 0) {
@@ -136,12 +135,19 @@ public class JokesController {
         return String.format("%s joke of the day entries were added successfully to the table", counter);
     }
 
+    // Always return a joke, scheduled or random fallback
     @GetMapping("/joke-of-the-day")
     public JokeOfTheDayResponse getJokeOfTheDay() {
         JokeOfTheDay jokeOfTheDay = jokeOfTheDayRepository.findByDate(LocalDate.now());
 
         if (jokeOfTheDay == null || jokeOfTheDay.getJoke() == null) {
-            return new JokeOfTheDayResponse(new Joke("Joke unavailable today", "", ""));
+            List<Joke> allJokes = jokesRepository.findAll();
+            if (!allJokes.isEmpty()) {
+                Joke randomJoke = allJokes.get(new Random().nextInt(allJokes.size()));
+                return new JokeOfTheDayResponse(randomJoke);
+            } else {
+                return new JokeOfTheDayResponse(new Joke("No jokes available at all", "", ""));
+            }
         }
 
         return new JokeOfTheDayResponse(jokeOfTheDay.getJoke());
