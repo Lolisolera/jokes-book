@@ -12,6 +12,14 @@ Try the app live with no setup required:
 
 ---
 
+## 📦 Frontend Repository
+
+This backend is paired with the frontend available at:
+
+🔗 [jokes-book-frontend](https://github.com/Lolisolera/jokes-book-frontend)
+
+---
+
 ## 💡 Features
 
 ### 🖥️ Frontend
